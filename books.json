@@ -1,0 +1,19 @@
+{
+    "books": [
+        {
+            "title": "The Politics of Innovation: Why Some Countries Are Better Than Others at Science and Technology",
+            "authors": ["Mark Zachary Taylor"],
+            "attributes": ["Explores how politics, rather than institutions, drive S&T competitiveness"]
+        },
+        {
+            "title": "How the West Came to Rule: The Geopolitical Origins of Capitalism",
+            "authors": ["Alexander Anievas", "Kerem Nişancıoğlu"],
+            "attributes": ["Challenges Eurocentric views by arguing capitalism's rise was a global process"]
+        },
+        {
+            "title": "The Fourth Industrial Revolution",
+            "authors": ["Klaus Schwab"],
+            "attributes": ["Discusses technological advancements shaping the future"]
+        }
+    ]
+}
