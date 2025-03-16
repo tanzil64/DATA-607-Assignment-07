@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<books>
+    <book>
+        <title>The Politics of Innovation: Why Some Countries Are Better Than Others at Science and Technology</title>
+        <authors>
+            <author>Mark Zachary Taylor</author>
+        </authors>
+        <attributes>
+            <attribute>Explores how politics, rather than institutions, drive S&amp;T competitiveness</attribute>
+
+        </attributes>
+    </book>
+    <book>
+        <title>How the West Came to Rule: The Geopolitical Origins of Capitalism</title>
+        <authors>
+            <author>Alexander Anievas</author>
+            <author>Kerem Nişancıoğlu</author>
+        </authors>
+        <attributes>
+            <attribute>Challenges Eurocentric views by arguing capitalism's rise was a global process</attribute>
+        </attributes>
+    </book>
+    <book>
+        <title>The Fourth Industrial Revolution</title>
+        <authors>
+            <author>Klaus Schwab</author>
+        </authors>
+        <attributes>
+            <attribute>Discusses technological advancements shaping the future</attribute>
+        </attributes>
+    </book>
+</books>
