@@ -1,0 +1,96 @@
+---
+title: "DATA 607 Assignment 07"
+author: "Md. Tanzil Ehsan"
+date: "`r Sys.Date()`"
+output: openintro::lab_report
+---
+
+```{r load-packages, message=FALSE}
+library(tidyverse)
+library(openintro)
+```
+
+### We will choose three books and deliverable would be  the three source files.
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+
+## Package
+```{r}
+# Install zoo if not already installed
+if (!requireNamespace("xml2", quietly = TRUE)) {install.packages("xml2")}
+if (!requireNamespace("jsonlite", quietly = TRUE)) {install.packages("jsonlite")}
+if (!requireNamespace("rvest", quietly = TRUE)) install.packages("rvest")
+```
+
+## LIBRARY
+```{r}
+# Load necessary libraries
+library(xml2)
+library(jsonlite)
+library(rvest)
+```
+
+## Load dat afor HTML 
+```{r}
+# Load HTML file
+html_data <- read_html("https://raw.githubusercontent.com/tanzil64/DATA-607-Assignment-07/refs/heads/main/books.html")
+table_data <- html_table(html_nodes(html_data, "table")[[1]])
+#print("HTML Data:")
+#print(table_data)
+df_html <-data.frame(table_data)
+print(df_html)
+```
+
+## Load dat afor XML
+```{r}
+# Load XML file using xml2
+xml_data <- read_xml("https://raw.githubusercontent.com/tanzil64/DATA-607-Assignment-07/refs/heads/main/books.xml")
+xml_books <- xml_find_all(xml_data, "//book")
+books_list <- lapply(xml_books, function(book) {
+  list(
+    title = xml_text(xml_find_first(book, "title")),
+    authors = xml_text(xml_find_all(book, "authors/author")),
+    attributes = xml_text(xml_find_all(book, "attributes/attribute"))
+  )
+})
+
+
+df_xml <-data.frame(books_list)
+print(df_xml)
+##print("XML Data:")
+#print(books_list)
+```
+
+## Load dat afor Json
+```{r}
+# Load JSON file
+json_data <- fromJSON("https://raw.githubusercontent.com/tanzil64/DATA-607-Assignment-07/refs/heads/main/books.json")
+df_json <-data.frame(json_data)
+print(df_json)
+
+#print("JSON Data:")
+#print(json_data)
+
+```
+
+
+
+## Check Identical
+```{r}
+# Check if df_html and df_xml are identical
+identical(df_html, df_xml)
+
+# Check if df_html and df_json are identical
+identical(df_html, df_json)
+
+# Check if df_xml and df_json are identical
+identical(df_xml, df_json)
+
+```
+Conclusion: In conclusion we can say  that the files are in different format and not identical.
