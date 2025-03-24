@@ -1,0 +1,113 @@
+
+
+
+
+
+
+
+```{r}
+# Split 'Location' column into 'City' and 'State'
+job_spy_data_clean <- job_spy_data_clean %>%
+  mutate(
+    State = str_split_fixed(location, ", ", 3)[, 2],  # Extract last part (State)
+    City  = str_split_fixed(location, ", ", 3)[, 1],   # Extract first part (City)
+    Country  = str_split_fixed(location, ", ", 3)[, 3]   # Extract first part (Country)
+  )
+
+# Display first few rows to verify
+head(job_spy_data_clean[, c("location", "City", "State","Country")])
+```
+
+```{r}
+# Count job listings per state (US only)
+us_state_counts <- job_spy_data_clean %>%
+  filter(Country == "US") %>%
+  count(State, sort = TRUE) %>%
+  top_n(10, n)  # Keep only top 10 states
+
+# Create a bar chart for U.S. states
+ggplot(us_state_counts, aes(x = reorder(State, n), y = n, fill = State)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +  # Flip for better readability
+  labs(title = "Top 10 U.S. States by Job Listings",
+       x = "State",
+       y = "Number of Job Listings") +
+  theme_minimal() +
+  theme(
+    axis.text.y = element_text(size = 12),  # Improve readability
+    plot.title = element_text(hjust = 0.5, size = 14, face = "bold"),  # Center title
+    legend.position = "none"  # Hide legend for clarity
+  )
+
+
+```
+```{r}
+view(applicants_data_clean)
+```
+```{r}
+# Count applicants per education level
+education_counts <- applicants_data_clean %>%
+  count(education_level, sort = TRUE)
+
+# Bar chart
+ggplot(education_counts, aes(x = reorder(education_level, -n), y = n, fill = education_level)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Number of Applicants by Education Level",
+       x = "Education Level",
+       y = "Number of Applicants") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
+        legend.position = "none")
+
+```
+```{r}
+# Boxplot of experience levels
+ggplot(applicants_data_clean, aes(y = as.numeric(experience))) +
+  geom_boxplot(fill = "steelblue", alpha = 0.7) +
+  labs(title = "Distribution of Applicants' Experience Levels",
+       y = "Years of Experience") +
+  theme_minimal()
+
+
+```
+
+
+```{r}
+# Load necessary libraries
+# Boxplot of salary by experience level
+ggplot(low_salary_data, aes(x = experience_level, y = salary_in_usd, fill = experience_level)) +
+  geom_boxplot() +
+  labs(title = "Salary Distribution by Experience Level",
+       x = "Experience Level",
+       y = "Salary in USD") +
+  theme_minimal()
+
+
+```
+```{r}
+# Alternative: Grouped Bar Chart
+ggplot(low_salary_data, aes(x = experience_level, y = salary_in_usd, fill = employment_type)) +
+  geom_bar(stat = "summary", fun = "mean", position = "dodge") +
+  labs(title = "Salary by Experience Level & Employment Type",
+       x = "Experience Level",
+       y = "Average Salary (USD)") +
+  theme_minimal()
+
+```
+```{r}
+# Bar chart with improved readability
+ggplot(low_salary_data, aes(x = experience_level, y = salary_in_usd, fill = employment_type)) +
+  geom_bar(stat = "summary", fun = "mean", position = "dodge") +
+  facet_wrap(~employment_type) +
+  labs(title = "Average Salary by Experience Level & Employment Type",
+       x = "Experience Level",
+       y = "Average Salary in USD") +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1, size = 12),  # Rotate x-axis labels
+    plot.title = element_text(hjust = 0.5, size = 14, face = "bold")  # Center title
+  )
+
+
+```
+
